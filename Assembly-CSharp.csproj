@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4FB7A59B-795D-546C-5482-7DE6F6532B31}</ProjectGuid>
+    <ProjectGuid>{F8948861-E2AA-E40B-3359-D4E397F826B6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -65,6 +65,8 @@
     <Compile Include="Assets\Scripts\Controllers\Road.cs" />
     <Compile Include="Assets\Scripts\Controllers\GamePage.cs" />
     <Compile Include="Assets\Scripts\Data\Score.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Car.cs" />
+    <Compile Include="Assets\Scripts\WheelScript\Wheel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

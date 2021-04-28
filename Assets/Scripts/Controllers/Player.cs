@@ -11,11 +11,27 @@ public class Player : MonoBehaviour
     public bool GameOver = false;
 
     Camera cam;
-
+    float rotationRad;
+    float dx, dy;
+    Vector3 acceleration;
+    public float offcetToCamera = 3f;
 
     void Start()
     {
         cam = Camera.main;
+    }
+    void CalcMovement(float inputY)
+    {
+        dx = -Mathf.Sin(rotationRad);
+        dy = Mathf.Cos(rotationRad);
+        // В Юнити нулевой угол поворота повернут на 90, поэтому проекции инвертированы!!!
+        acceleration = new Vector3(dx, dy)*accBrakeSpeed* inputY;
+        offcetToCamera -= acceleration.y * Time.deltaTime;
+
+    }
+    void Move()
+    {
+        transform.position += new Vector3(dx, dy) * moveSpeed * Time.deltaTime;
     }
 
     void Update()
@@ -23,9 +39,13 @@ public class Player : MonoBehaviour
         if (GameOver)
             return;
         var inputSteer = Input.GetAxis("Horizontal");
-        transform.position += Vector3.up * moveSpeed * Time.deltaTime;
-        // ВрЕменный поворот в стороны
-        transform.position += Vector3.right * steeringSpeed * inputSteer * Time.deltaTime;
+        var inputSpeed = Input.GetAxis("Vertical");
+        transform.Rotate(0, 0, -inputSteer * steeringSpeed * Time.deltaTime);
+        CalcRotation();
+        CalcMovement(inputSpeed);
+        Move();
+
+        
 
         var camPosition = cam.transform.position;
         camPosition.y = transform.position.y;
@@ -35,4 +55,13 @@ public class Player : MonoBehaviour
     {
        gameManager.HandleCollision(collision.gameObject);
     }
+
+    void CalcRotation()
+    {
+        var rotation = transform.rotation.eulerAngles.z;
+        rotationRad = rotation / 360 * 2 * Mathf.PI;
+        Debug.Log("rotation " + rotationRad);
+    }
+
+
 }
